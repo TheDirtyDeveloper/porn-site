@@ -5,4 +5,4 @@ This websites was made with learning purpose.
 
 All the videos shows in were provided by redtube
 
-![alt text](ignore_it/image1.PNG)
+![alt text](ignore_it/image1.jpg)
