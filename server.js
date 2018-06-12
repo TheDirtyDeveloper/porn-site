@@ -19,13 +19,13 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 app.get('/favorites', (req,res) => {
     Video.find().then((videos) => {
-        res.send(200).render('favorites', {result: videos});
+        res.render('favorites', {result: videos});
     }).catch((e) => res.status(400).send());
 
 });
 
 app.get('/about', (req,res) => {
-    res.status(200).render('about');
+    res.render('about');
 })
 
 app.get('/video/:id', (req,res) => {
@@ -34,7 +34,7 @@ app.get('/video/:id', (req,res) => {
          .then((video) => {    
             if(video.data.code && video.data.code !== 200) 
                 return res.render('error', {error_code: 404, error_message: "Video not found."});        
-            axios.get(` https://api.redtube.com/?data=redtube.Videos.getVideoEmbedCode&video_id=00000&output=json`)
+            axios.get(` https://api.redtube.com/?data=redtube.Videos.getVideoEmbedCode&video_id=${id}&output=json`)
                  .then(embed => {      
                     if(embed.data.code && embed.data.code !== 200)       
                         return res.render('error', {error_code: 404, error_message: "Embed not found"});
