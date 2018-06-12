@@ -14,3 +14,14 @@
 #error2{
     font-size: 80px;
 }
+
+#tags{
+    height: 50px;
+    overflow: hidden;
+    transition: all 0.4s;
+}
+
+#expander{
+    color: red;
+    cursor: pointer;
+}
