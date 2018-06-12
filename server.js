@@ -17,6 +17,8 @@ app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
 hbs.registerPartials(__dirname + '/views/partials');
 
+
+
 app.get('/favorites', (req,res) => {
     Video.find().then((videos) => {
         res.render('favorites', {result: videos});
@@ -94,8 +96,13 @@ app.get('/:page?/:find?', (req,res) => {
         .then((videos) => {
             if(videos.data.count == 0 || (videos.data.code && videos.data.code !== 200)) 
                 return res.render('error.hbs', {error_code: "404", error_message: "Videos not found"});
-            const result = videos.data.videos;
-            res.render('index.hbs', {results: result,next_page: next, back_page: back, find: find});
+            axios.get(`https://api.redtube.com/?data=redtube.Tags.getTagList&output=json`)
+                 .then((tags) => {
+                    var taglist = tags.data.tags;
+                    if(!taglist) taglist = "";
+                    const result = videos.data.videos;                    
+                    res.render('index.hbs', {results: result,next_page: next, back_page: back, find: find, tags: taglist});
+                 }).catch((e) => res.status(400).send(e));   
         }).catch((e) => res.status(400).send(e));
 });
 
