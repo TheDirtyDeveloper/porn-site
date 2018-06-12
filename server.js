@@ -64,7 +64,8 @@ app.get('/save/:id', (req,res) => {
             });
 
             videom.save().then((nvideo) => {
-                if(!nvideo) return res.render('error', {error_code: 400, error_message: "There were an error saving your video."})
+                if(!nvideo) 
+                    return res.render('error', {error_code: 400, error_message: "There were an error saving your video."})
                 res.redirect(backURL);
             }).catch((e) => res.status(400).send(e));
          }).catch((e) => res.status(400).send(e));
@@ -80,17 +81,21 @@ app.delete('/delete/:id', (req,res) => {
     }).catch((e) => console.log(e));
 })
 
-app.get('/:page?', (req,res) => {
+app.get('/:page?/:find?', (req,res) => {
     var page = parseInt(req.params.page);
     if(!page) page = 1;
     const next = page+1;
     const back = page-1;
-    axios.get(`https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&thumbsize=large&page=${page}`)
+
+    var find = req.params.find;
+    if(!find) find = "";
+
+    axios.get(`https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&thumbsize=large&page=${page}&search=${find}`)
         .then((videos) => {
             if(videos.data.count == 0 || (videos.data.code && videos.data.code !== 200)) 
                 return res.render('error.hbs', {error_code: "404", error_message: "Videos not found"});
             const result = videos.data.videos;
-            res.render('index.hbs', {results: result,next_page: next, back_page: back});
+            res.render('index.hbs', {results: result,next_page: next, back_page: back, find: find});
         }).catch((e) => res.status(400).send(e));
 });
 
