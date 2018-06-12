@@ -19,30 +19,33 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 app.get('/favorites', (req,res) => {
     Video.find().then((videos) => {
-        res.render('favorites', {result: videos});
-    }).catch((e) => console.log(e));
+        res.send(200).render('favorites', {result: videos});
+    }).catch((e) => res.status(400).send());
 
 });
 
 app.get('/about', (req,res) => {
-    res.render('about');
+    res.status(200).render('about');
 })
 
 app.get('/video/:id', (req,res) => {
     const id = req.params.id;
     axios.get(`https://api.redtube.com/?data=redtube.Videos.getVideoById&video_id=${id}&output=json&thumbsize=all`)
-         .then((video) => {
-            axios.get(` https://api.redtube.com/?data=redtube.Videos.getVideoEmbedCode&video_id=${id}&output=json`)
-                 .then(embed => {
-                
+         .then((video) => {    
+            if(video.data.code && video.data.code !== 200) 
+                return res.render('error', {error_code: 404, error_message: "Video not found."});        
+            axios.get(` https://api.redtube.com/?data=redtube.Videos.getVideoEmbedCode&video_id=00000&output=json`)
+                 .then(embed => {      
+                    if(embed.data.code && embed.data.code !== 200)       
+                        return res.render('error', {error_code: 404, error_message: "Embed not found"});
                     const buffer = new Buffer(embed.data.embed.code, 'base64');  
                     const embed_video = buffer.toString('ascii');
 
-                    res.render('video', {result: video.data.video, embed: embed_video});
+                    res.status(200).render('video', {result: video.data.video, embed: embed_video});
                  })
-                 .catch((e) => res.send(e));            
+                 .catch((e) => res.status(400).send(e));    
          })
-         .catch((e) => res.send(e));
+         .catch((e) => res.status(400).send(e));
 });
 
 app.get('/save/:id', (req,res) => {
@@ -50,6 +53,8 @@ app.get('/save/:id', (req,res) => {
     const backURL = req.header('Referer') || '/';
     axios.get(`https://api.redtube.com/?data=redtube.Videos.getVideoById&video_id=${id}&output=json&thumbsize=all`)
          .then((video) => {
+            if(video.data.code && video.data.code !== 200)
+                return res.render('error', {error_code: 404, error_message: "Video not found"});
             video = video.data.video;
             
             const videom = new Video({
@@ -59,9 +64,10 @@ app.get('/save/:id', (req,res) => {
             });
 
             videom.save().then((nvideo) => {
+                if(!nvideo) return res.render('error', {error_code: 400, error_message: "There were an error saving your video."})
                 res.redirect(backURL);
-            }).catch((e) => console.log(e));
-         }).catch((e) => console.log(e));
+            }).catch((e) => res.status(400).send(e));
+         }).catch((e) => res.status(400).send(e));
 });
 
 app.delete('/delete/:id', (req,res) => {
@@ -69,6 +75,7 @@ app.delete('/delete/:id', (req,res) => {
     const backURL = req.header('Referer') || '/';
 
     Video.findByIdAndRemove(id).then((video) => {
+        if(!video) return res.render('error', {error_code: 400, error_message: "There were an error deleting your video."})
         res.redirect(backURL);
     }).catch((e) => console.log(e));
 })
@@ -80,10 +87,11 @@ app.get('/:page?', (req,res) => {
     const back = page-1;
     axios.get(`https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&thumbsize=large&page=${page}`)
         .then((videos) => {
-            if(videos.data.count == 0) return res.render('error.hbs', {error_code: "404", error_message: "Videos not found"});
+            if(videos.data.count == 0 || (videos.data.code && videos.data.code !== 200)) 
+                return res.render('error.hbs', {error_code: "404", error_message: "Videos not found"});
             const result = videos.data.videos;
             res.render('index.hbs', {results: result,next_page: next, back_page: back});
-        }).catch((e) => console.log(e));
+        }).catch((e) => res.status(400).send(e));
 });
 
 app.listen(port, () => {
