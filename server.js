@@ -32,7 +32,15 @@ app.get('/video/:id', (req,res) => {
     const id = req.params.id;
     axios.get(`https://api.redtube.com/?data=redtube.Videos.getVideoById&video_id=${id}&output=json&thumbsize=all`)
          .then((video) => {
-            res.render('video', {result: video.data.video});
+            axios.get(` https://api.redtube.com/?data=redtube.Videos.getVideoEmbedCode&video_id=${id}&output=json`)
+                 .then(embed => {
+                
+                    const buffer = new Buffer(embed.data.embed.code, 'base64');  
+                    const embed_video = buffer.toString('ascii');
+
+                    res.render('video', {result: video.data.video, embed: embed_video});
+                 })
+                 .catch((e) => res.send(e));            
          })
          .catch((e) => res.send(e));
 });
