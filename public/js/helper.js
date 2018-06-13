@@ -1,6 +1,6 @@
 $("#search_b").click(function(){
     var search = $("#search").val();
-    window.location.href = `http://localhost:3000/1/${search}`;
+    window.location.href = `${document.location.origin}/1/${search}`;
 }); 
 
 $("#expander").click(function(){
