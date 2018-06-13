@@ -17,6 +17,22 @@ app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
 hbs.registerPartials(__dirname + '/views/partials');
 
+app.get('/tag/:tag/:page?', (req,res) => {
+    var page = parseInt(req.params.page);
+    if(!page) page = 1;
+    const next = page+1;
+    const back = page-1;
+    const tag = req.params.tag;
+    axios.get(`https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&tags[]=${tag}&page=${page}`)
+         .then((videos) => {
+            if(videos.data.count == 0)
+                return res.render('error', {error_code: 404, error_message: "Not videos founds with this tag"});
+            
+            const result = videos.data.videos;
+            res.render('tag', {results: result,next_page: next, back_page: back, tag: tag});
+         })
+         .catch((e) => res.status(400).send(e));
+})
 
 app.get('/star/:star/:page?', (req,res) => {
     var page = parseInt(req.params.page);

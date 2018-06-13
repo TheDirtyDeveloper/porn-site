@@ -16,15 +16,7 @@
         <br>
         <div class="container">
             <br>
-            <h1>Home <span style="font-family: Segoe UI Emoji;">🤔🤷🏼‍</span></h1>
-            <p>Welcome, this is the home page, all the videos you save will go to the 'favorite' section 🗂.</p>
-            <div id="tags">
-                <p id="taglist"><span>Popular tags</span> <span id="expander">(Expand)</span>:&nbsp;
-                    {{#each tags}}
-                        <a href="/tag/{{tag.tag_name}}">{{tag.tag_name}}</a> /
-                    {{/each}}
-                </p>
-            </div>
+            <h1>{{tag}} <span style="font-family: Segoe UI Emoji;"></span></h1>
             <div class="row">
                 {{#each results}}
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="padding-top: 15px;">
@@ -50,8 +42,8 @@
             </div>    
             <div class="row justify-content-center" style="padding-top: 15px; padding-bottom: 15px;">
                 <div class="col-auto">
-                    <a href="/{{back_page}}/{{find}}"><button type="button" class="btn btn-primary btn-lg" >Back page</button></a>
-                    <a href="/{{next_page}}/{{find}}"><button type="button" class="btn btn-primary btn-lg">Next page</button></a>
+                    <a href="/tag/{{tag}}/{{back_page}}"><button type="button" class="btn btn-primary btn-lg">Back page</button></a>
+                    <a href="/tag/{{tag}}/{{next_page}}"><button type="button" class="btn btn-primary btn-lg">Next page</button></a>
                 </div>
             </div>
         </div>
