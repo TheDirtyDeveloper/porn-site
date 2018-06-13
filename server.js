@@ -3,6 +3,7 @@ const hbs = require('hbs');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
+var ip = require('ip');
 var methodOverride = require('method-override');
 var {mongoose} = require('./server/db/mongoose');
 var {Video} = require('./server/models/video');
@@ -67,7 +68,9 @@ app.get('/stars/:page?', (req,res) => {
 });
 
 app.get('/favorites', (req,res) => {
-    Video.find().then((videos) => {
+    Video.find({
+        ip: ip.address()
+    }).then((videos) => {
         res.render('favorites', {result: videos});
     }).catch((e) => res.status(400).send());
 
@@ -109,6 +112,7 @@ app.get('/save/:id', (req,res) => {
             const videom = new Video({
                 video_id: video.video_id,
                 title: video.title,
+                ip: ip.address(),
                 thumb: video.thumb
             });
 

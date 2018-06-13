@@ -19,6 +19,10 @@ var Video = mongoose.model('Video', {
         minlength: 10,
         trim: true,
     },
+    ip: {
+        type: String,
+        required: true
+    },
     savedAt: {
         type: Number,
         default: new Date().getTime()
