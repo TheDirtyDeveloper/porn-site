@@ -18,6 +18,37 @@ app.use(express.static(__dirname + '/public'));
 hbs.registerPartials(__dirname + '/views/partials');
 
 
+app.get('/star/:star/:page?', (req,res) => {
+    var page = parseInt(req.params.page);
+    if(!page) page = 1;
+    const next = page+1;
+    const back = page-1;
+    const star = encodeURIComponent(req.params.star);
+    axios.get(`https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&stars[]=${star}&page=${page}`)
+         .then((videos) => {
+            if(videos.data.count == 0)
+                res.render('error',{error_code: 404, error_message: "Pornstar not found"});
+            
+            const videoslist = videos.data.videos;
+            res.render('star', {results: videoslist, next_page: next, back_page: back, pornstar: star, pornstar_d: decodeURIComponent(star)});
+         })
+         .catch((e) => res.status(400).send(e));
+});
+
+app.get('/stars/:page?', (req,res) => {
+    var page = parseInt(req.params.page);
+    if(!page) page = 1;
+    const next = page+1;
+    const back = page-1;
+    axios.get(`https://api.redtube.com/?data=redtube.Stars.getStarDetailedList&output=json&page=${page}`)
+         .then((stars) => {
+            if(stars.data.count == 0)
+                return res.render('error', {error_code: 404, error_message: "Oopsie, there are no pornstars"});
+            const pornstars = stars.data.stars;
+            res.render('stars', {pornstars: pornstars, next_page: next, back_page: back});
+         })
+         .catch((e) => res.status(400).send(e));
+});
 
 app.get('/favorites', (req,res) => {
     Video.find().then((videos) => {

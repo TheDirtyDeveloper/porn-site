@@ -9,7 +9,7 @@ $("#expander").click(function(){
     
     if(tagdiv_size == 50){
         $("#tags").css("height",tag_size);
-        $("#expander").text("(Hide)");
+        $("#expander").text("(Collapse)");
     }else{
         $("#tags").css("height","50");
         $("#expander").text("(Expand)");
