@@ -9,7 +9,7 @@ var {Video} = require('./server/models/video');
 
 var app = express();
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
@@ -79,7 +79,7 @@ app.get('/about', (req,res) => {
 
 app.get('/video/:id', (req,res) => {
     const id = req.params.id;
-    axios.get(`https://api.redtube.com/?data=redtube.Videos.getVideoById&video_id=${id}&output=json&thumbsize=all`)
+    axios.get(`https://api.redtube.com/?data=redtube.Videos.getVideoById&video_id=${id}&output=json`)
          .then((video) => {    
             if(video.data.code && video.data.code !== 200) 
                 return res.render('error', {error_code: 404, error_message: "Video not found."});        
