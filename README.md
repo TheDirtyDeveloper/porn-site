@@ -11,6 +11,10 @@ The website manages to do a lot of things that almost every website has:
 
 *• Display a long catalog of videos*  :ledger:
 
+*• Display a long catalog of pornstars*  :kiss:
+
+*• Display a long catalog of tags*  :bookmark_tabs:
+
 *• Navigate through the pages* 🖱️
 
 *• Save your videos to see it later*  :floppy_disk:
