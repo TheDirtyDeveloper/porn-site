@@ -26,7 +26,7 @@ The website manages to do a lot of things that almost every website has:
 
 This websites was made with learning purpose.
 
-All the videos shows in were provided by redtube
+All the videos shows in were provided by Redtube through their api.
 
 # Demo
 
