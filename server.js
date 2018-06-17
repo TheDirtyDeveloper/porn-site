@@ -30,7 +30,7 @@ app.get('/tag/:tag/:page?', (req,res) => {
                 return res.render('error', {error_code: 404, error_message: "Not videos founds with this tag"});
             
             const result = videos.data.videos;
-            res.render('tag', {results: result,next_page: next, back_page: back, tag: tag});
+            res.status(200).render('tag', {results: result,next_page: next, back_page: back, tag: tag});
          })
          .catch((e) => res.status(400).send(e));
 })
@@ -47,7 +47,7 @@ app.get('/star/:star/:page?', (req,res) => {
                 res.render('error',{error_code: 404, error_message: "Pornstar not found"});
             
             const videoslist = videos.data.videos;
-            res.render('star', {results: videoslist, next_page: next, back_page: back, pornstar: star, pornstar_d: decodeURIComponent(star)});
+            res.status(200).render('star', {results: videoslist, next_page: next, back_page: back, pornstar: star, pornstar_d: decodeURIComponent(star)});
          })
          .catch((e) => res.status(400).send(e));
 });
@@ -62,7 +62,7 @@ app.get('/stars/:page?', (req,res) => {
             if(stars.data.count == 0)
                 return res.render('error', {error_code: 404, error_message: "Oopsie, there are no pornstars"});
             const pornstars = stars.data.stars;
-            res.render('stars', {pornstars: pornstars, next_page: next, back_page: back});
+            res.status(200).render('stars', {pornstars: pornstars, next_page: next, back_page: back});
          })
          .catch((e) => res.status(400).send(e));
 });
@@ -71,13 +71,13 @@ app.get('/favorites', (req,res) => {
     Video.find({
         ip: ip.address()
     }).then((videos) => {
-        res.render('favorites', {result: videos});
+        res.status(200).render('favorites', {result: videos});
     }).catch((e) => res.status(400).send());
 
 });
 
 app.get('/about', (req,res) => {
-    res.render('about');
+    res.status(200).render('about');
 })
 
 app.get('/video/:id', (req,res) => {
@@ -118,8 +118,8 @@ app.get('/save/:id', (req,res) => {
 
             videom.save().then((nvideo) => {
                 if(!nvideo) 
-                    return res.render('error', {error_code: 400, error_message: "There were an error saving your video."})
-                res.redirect(backURL);
+                    return res.status(400).render('error', {error_code: 400, error_message: "There were an error saving your video."})
+                res.status(200).redirect(backURL);
             }).catch((e) => res.status(400).send(e));
          }).catch((e) => res.status(400).send(e));
 });
@@ -129,9 +129,9 @@ app.delete('/delete/:id', (req,res) => {
     const backURL = req.header('Referer') || '/';
 
     Video.findByIdAndRemove(id).then((video) => {
-        if(!video) return res.render('error', {error_code: 400, error_message: "There were an error deleting your video."})
-        res.redirect(backURL);
-    }).catch((e) => console.log(e));
+        if(!video) return res.status(400).render('error', {error_code: 400, error_message: "There were an error deleting your video."})
+        res.status(200).redirect(backURL);
+    }).catch((e) => res.status(400).send());
 })
 
 app.get('/:page?/:find?', (req,res) => {
@@ -152,7 +152,7 @@ app.get('/:page?/:find?', (req,res) => {
                     var taglist = tags.data.tags;
                     if(!taglist) taglist = "";
                     const result = videos.data.videos;                    
-                    res.render('index.hbs', {results: result,next_page: next, back_page: back, find: find, tags: taglist});
+                    res.status(200).render('index.hbs', {results: result,next_page: next, back_page: back, find: find, tags: taglist});
                  }).catch((e) => res.status(400).send(e));   
         }).catch((e) => res.status(400).send(e));
 });
