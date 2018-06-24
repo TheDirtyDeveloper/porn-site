@@ -1,8 +1,3 @@
-/* $("#search_b").click(function(){
-    var search = $("#search").val();
-    window.location.href = `${document.location.origin}/1/${search}`;
-}); 
- */
 $("#expander").click(function(){
     const tag_size = $("#taglist").height();
     const tagdiv_size = $("#tags").height();
