@@ -18,51 +18,54 @@ app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
 hbs.registerPartials(__dirname + '/views/partials');
 
-app.get('/tag/:tag/:page?', (req,res) => {
-    var page = parseInt(req.params.page);
-    if(!page) page = 1;
-    const next = page+1;
-    const back = page-1;
+app.get('/tag/:tag', (req,res) => {
+    var page = parseInt(req.query.p);
+    if(!page || page == 0) page = 1;
     const tag = req.params.tag;
     axios.get(`https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&tags[]=${tag}&page=${page}`)
          .then((videos) => {
             if(videos.data.count == 0)
                 return res.render('error', {error_code: 404, error_message: "Not videos founds with this tag"});
+                
             
+            const next = `tag/${tag}?p=${page+1}`;
+            const back = `tag/${tag}?p=${page-1}`;
             const result = videos.data.videos;
-            res.status(200).render('tag', {results: result,next_page: next, back_page: back, tag: tag});
+            res.status(200).render('tag', {results: result,next: next, back: back, tag: tag});
          })
          .catch((e) => res.status(400).send(e));
 })
 
-app.get('/star/:star/:page?', (req,res) => {
-    var page = parseInt(req.params.page);
-    if(!page) page = 1;
-    const next = page+1;
-    const back = page-1;
+app.get('/star/:star', (req,res) => {
+    var page = parseInt(req.query.p);
+    if(!page || page == 0) page = 1;
     const star = encodeURIComponent(req.params.star);
     axios.get(`https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&stars[]=${star}&page=${page}`)
          .then((videos) => {
             if(videos.data.count == 0)
                 res.render('error',{error_code: 404, error_message: "Pornstar not found"});
             
+                
+            const next = `star/${star}?p=${page+1}`;
+            const back = `star/${star}?p=${page-1}`;
             const videoslist = videos.data.videos;
-            res.status(200).render('star', {results: videoslist, next_page: next, back_page: back, pornstar: star, pornstar_d: decodeURIComponent(star)});
+            res.status(200).render('star', {results: videoslist, next: next, back: back, pornstar: star, pornstar_d: decodeURIComponent(star)});
          })
          .catch((e) => res.status(400).send(e));
 });
 
-app.get('/stars/:page?', (req,res) => {
-    var page = parseInt(req.params.page);
-    if(!page) page = 1;
-    const next = page+1;
-    const back = page-1;
+app.get('/stars', (req,res) => {
+    var page = parseInt(req.query.p);
+    if(!page || page == 0) page = 1;    
+
+    const next = `stars?p=${page+1}`;
+    const back = `stars?p=${page-1}`;
     axios.get(`https://api.redtube.com/?data=redtube.Stars.getStarDetailedList&output=json&page=${page}`)
          .then((stars) => {
             if(stars.data.count == 0)
                 return res.render('error', {error_code: 404, error_message: "Oopsie, there are no pornstars"});
             const pornstars = stars.data.stars;
-            res.status(200).render('stars', {pornstars: pornstars, next_page: next, back_page: back});
+            res.status(200).render('stars', {pornstars: pornstars, next: next, back: back});
          })
          .catch((e) => res.status(400).send(e));
 });
@@ -134,14 +137,12 @@ app.delete('/delete/:id', (req,res) => {
     }).catch((e) => res.status(400).send());
 })
 
-app.get('/:page?/:find?', (req,res) => {
-    var page = parseInt(req.params.page);
-    if(!page) page = 1;
-    const next = page+1;
-    const back = page-1;
+app.get('/', (req,res) => {
 
-    var find = req.params.find;
-    if(!find) find = "";
+    var page = parseInt(req.query.p);
+    if(!page || page == 0) page = 1;    
+    var find = req.query.search;
+    if(!req.query.search) find = "";   
 
     axios.get(`https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&thumbsize=large&page=${page}&search=${find}`)
         .then((videos) => {
@@ -151,8 +152,11 @@ app.get('/:page?/:find?', (req,res) => {
                  .then((tags) => {
                     var taglist = tags.data.tags;
                     if(!taglist) taglist = "";
-                    const result = videos.data.videos;                    
-                    res.status(200).render('index.hbs', {results: result,next_page: next, back_page: back, find: find, tags: taglist});
+                    const result = videos.data.videos;    
+                    if(find) find = `&search=${find}`;
+                    const next = `?p=${page+1}${find}`;
+                    const back = `?p=${page-1}${find}`;                
+                    res.status(200).render('index.hbs', {results: result,next: next, back: back, find: find, tags: taglist});
                  }).catch((e) => res.status(400).send(e));   
         }).catch((e) => res.status(400).send(e));
 });
