@@ -35,10 +35,7 @@
                                 <br class="d-block d-lg-none">
                                 <br class="d-block d-lg-none">
                                 <div class="col-12 col-lg-6">
-                                    <form action="/delete/{{_id}}?_method=DELETE" method="POST">
-                                        <input type="hidden" name="_method" value="DELETE" />
-                                        <input type="submit" value="Delete" class="btn btn-danger btn-block">
-                                    </form>
+                                    {{> _deletebutton}}
                                 </div>
                             </div>
                         </div>
