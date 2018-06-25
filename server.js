@@ -21,16 +21,9 @@ app.use(express.static(__dirname + '/public'));
 hbs.registerPartials(__dirname + '/views/partials');
 
 app.use('/tag', tags);
-
 app.use('/stars', pornstars);
-
 app.use('/action', actions);
-
 app.use('/', basics);
-
-
-
-
 
 app.listen(port, () => {
     console.log(`Server running on ${port}`);
