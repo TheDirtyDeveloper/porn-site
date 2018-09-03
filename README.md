@@ -40,4 +40,4 @@ npm install
 
 WARNING: The demo has **NSFW** content (Not safe for work), **you MUST BE an adult to access to it**, be sure to be in a safe place because **it contains nudity and explicit content**. :no_entry:
 
-:no_entry: [Visit the demo website](https://sleepy-falls-11779.herokuapp.com/) :no_entry:
+:no_entry: [Visit the demo website](https://pornifyjs.herokuapp.com/) :no_entry:
