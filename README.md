@@ -1,8 +1,4 @@
-# Pornify  :flushed:
-
-Pornify is a sample porn website, the idea of this repository is to show how to use Redtube's api to create a porn website from scratch without many resources using *NodeJS*, *MongoDB* and *ExpressJS*
-
-![alt text](ignore_it/image1.jpg)
+# Ultimate Porn Space
 
 
 ## What can it do?
@@ -33,11 +29,8 @@ All the videos shows in were provided by Redtube through their api.
 Execute the next command to install all the dependencies
 
 ```
+git init
+git clone <project repo>
 npm install
 ```
 
-## Demo
-
-WARNING: The demo has **NSFW** content (Not safe for work), **you MUST BE an adult to access to it**, be sure to be in a safe place because **it contains nudity and explicit content**. :no_entry:
-
-:no_entry: [Visit the demo website](https://pornifyjs.herokuapp.com/) :no_entry:

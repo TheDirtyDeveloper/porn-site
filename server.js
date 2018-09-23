@@ -3,14 +3,14 @@ const hbs = require('hbs');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
-var methodOverride = require('method-override');
+const methodOverride = require('method-override');
 
 const pornstars = require('./server/routes/pornstar');
 const tags = require('./server/routes/tag');
 const basics = require('./server/routes/basic');
 const actions = require('./server/routes/actions');
 
-var app = express();
+const app = express();
 
 const port = process.env.PORT || 3000;
 
@@ -27,4 +27,4 @@ app.use('/', basics);
 
 app.listen(port, () => {
     console.log(`Server running on ${port}`);
-})
+});

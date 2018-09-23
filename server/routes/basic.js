@@ -1,9 +1,9 @@
 const axios = require('axios');
 const express = require('express');
-var router = express.Router();
-var {mongoose} = require('./../db/mongoose');
-var {Video} = require('./../models/video');
-var ip = require('ip');
+let router = express.Router();
+let {mongoose} = require('./../db/mongoose');
+let {Video} = require('./../models/video');
+let ip = require('ip');
 
 router.get('/favorites', (req,res) => {
     Video.find({
@@ -16,7 +16,7 @@ router.get('/favorites', (req,res) => {
 
 router.get('/about', (req,res) => {
     res.status(200).render('about');
-})
+});
 
 router.get('/video/:id', (req,res) => {
     const id = req.params.id;
@@ -41,7 +41,7 @@ router.get('/video/:id', (req,res) => {
 router.get('/', (req,res) => {
 
     var page = parseInt(req.query.p);
-    if(!page || page == 0) page = 1;    
+    if(!page || page === 0) page = 1;
     var find = req.query.search;
     if(!req.query.search) find = "";   
 

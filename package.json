@@ -1,14 +1,12 @@
 {
-  "name": "Pornify",
+  "name": "ultimate-porn-space",
   "version": "1.0.0",
-  "description": "",
+  "description": "Ultimate Porn Space",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
