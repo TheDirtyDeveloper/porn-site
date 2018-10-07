@@ -47,7 +47,7 @@ router.get('/', (req,res) => {
 
     axios.get(`https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&thumbsize=large&page=${page}&search=${find}`)
         .then((videos) => {
-            if(videos.data.count == 0 || (videos.data.code && videos.data.code !== 200)) 
+            if(videos.data.count === 0 || (videos.data.code && videos.data.code !== 200))
                 return res.render('error.hbs', {error_code: "404", error_message: "Videos not found"});
             axios.get(`https://api.redtube.com/?data=redtube.Tags.getTagList&output=json`)
                  .then((tags) => {
