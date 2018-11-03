@@ -2,17 +2,34 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>The perfect porn site</title>
+        <title>Perfect Porn</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
         {{> _generalcss}}
         <style>
+            body {
+                background-color: dodgerblue;
+            }
             div.container {
                 background-color: lightgrey;
             }
         </style>
     </head>
-    <body>
+    <body onload="myFunction()">
+        <p id="demo"></p>
+
+        <script>
+            function myFunction() {
+                var txt;
+                var person = prompt("Please enter your age:");
+                if (person == null || person <= 17) {
+                    txt = "User cancelled the prompt.";
+                } else {
+                    txt = "Hello " + person + "! Welcome to the ultimate porn site!";
+                }
+                document.getElementById("demo").innerHTML = txt;
+            }
+        </script>
         <div class="row">
             <div class="col-md-12">
                 {{> _navbar}}
