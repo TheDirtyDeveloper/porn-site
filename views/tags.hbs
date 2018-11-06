@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ultimate Porn Space</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    {{> _generalcss}}
+</head>
+<body>
+<div class="row">
+    <div class="col-md-12">
+        {{> _navbar}}
+    </div>
+</div>
+<br>
+<div class="container">
+    {{> _top}}
+    <br>
+    <h1>Categories <span style="font-family: Segoe UI Emoji;">💋</span></h1>
+    <p>Search for videos by their category.</p>
+    <hr>
+    <div class="row" id="tags">
+        {{#each tags}}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="padding-top: 15px;">
+                <div class="card">
+                    <!--<img src="{{star_thumb}}" class="card-img-top">-->
+                    <div class="card-body">
+                        <h5 class="card-title">{{tag.tag_name}}</h5>
+                        <div class="row">
+                            <div class="col-12">
+                                <a href="/tag/{{tag.tag_name}}" class="btn btn-primary btn-block">More videos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+        <span id="expander">(Expand)</span>
+    </div>
+    <div class="row justify-content-center" style="padding-top: 15px; padding-bottom: 15px;">
+        <div class="col-auto">
+            {{> _pagination}}
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+{{> _generalscripts}}
+</body>
+</html>
