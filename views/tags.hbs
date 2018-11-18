@@ -24,14 +24,16 @@
         {{#each tags}}
             <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="padding-top: 15px;">
                 <div class="card">
-                    <!--<img src="{{star_thumb}}" class="card-img-top">-->
                     <div class="card-body">
                         <h5 class="card-title">{{tag.tag_name}}</h5>
-                        <div class="row">
-                            <div class="col-12">
-                                <a href="/tag/{{tag.tag_name}}" class="btn btn-primary btn-block">More videos</a>
-                            </div>
+                        <div id="tags">
+                            <p id="taglist"><span>Popular tags</span> <span id="expander">(Expand)</span>:&nbsp;
+                                {{#each tags}}
+                                    <a href="/tag/{{tag.tag_name}}">{{tag.tag_name}}</a> /
+                                {{/each}}
+                            </p>
                         </div>
+                        <hr>
                     </div>
                 </div>
             </div>

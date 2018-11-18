@@ -17,22 +17,16 @@ The website manages to do a lot of things that almost every website has:
 
 *• Search videos of your preferences*  :mag:
 
-To do:
-Integrate https://www.npmjs.com/package/pornhub-api
 
 ## About
 
-This websites was made with learning purpose.
-
 All the videos shows in were provided by Redtube through their api.
 
-## Install
 
-Execute the next command to install all the dependencies
-
-```
-git init
-git clone <project repo>
-npm install
-```
-
+To do 
+- Integrate https://www.npmjs.com/package/pornhub-api
+- add ability to play multiple videos side by side with ease or allow user to view videos with a full search on the side.
+    - Ex. https://www.xnxx.com/video-gyk110c/i_bet_you_will_cum_in_the_1st_fucking_minute_
+    - https://responsivevideogallery.com
+    - https://codepen.io/coreyroth/pen/eeyvMw
+    - https://mobirise.com/bootstrap-template/video-gallery-template.html

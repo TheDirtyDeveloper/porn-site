@@ -20,7 +20,7 @@ app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
 hbs.registerPartials(__dirname + '/views/partials');
 
-app.use('/tag', tags);
+app.use('/tags', tags);
 app.use('/stars', pornstars);
 app.use('/action', actions);
 app.use('/', basics);
