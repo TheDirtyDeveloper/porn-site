@@ -1,3 +1,6 @@
 node_modules
 package-lock.json
 modify.txt
+/*.env
+npm-debug.log
+.DS_Store
