@@ -25,3 +25,7 @@
     color: red;
     cursor: pointer;
 }
+
+.container{
+    border-radius: 25px;
+}
