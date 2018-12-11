@@ -28,6 +28,7 @@
     "serverless-http": "^1.8.0"
   },
   "devDependencies": {
+    "gulp": "^4.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.25.1",

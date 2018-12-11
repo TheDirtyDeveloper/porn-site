@@ -20,25 +20,12 @@
     <h1>Categories <span style="font-family: Segoe UI Emoji;">💋</span></h1>
     <p>Search for videos by their category.</p>
     <hr>
-    <div class="row" id="tags">
-        {{#each tags}}
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="padding-top: 15px;">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{tag.tag_name}}</h5>
-                        <div id="tags">
-                            <p id="taglist"><span>Popular tags</span> <span id="expander">(Expand)</span>:&nbsp;
-                                {{#each tags}}
-                                    <a href="/tag/{{tag.tag_name}}">{{tag.tag_name}}</a> /
-                                {{/each}}
-                            </p>
-                        </div>
-                        <hr>
-                    </div>
-                </div>
-            </div>
-        {{/each}}
-        <span id="expander">(Expand)</span>
+    <div id="tags">
+        <p id="taglist"><span>Popular tags</span> <span id="expander">(Expand)</span>:&nbsp;
+            {{#each tags}}
+                <a href="/tag/{{tag.tag_name}}">{{tag.tag_name}}</a> /
+            {{/each}}
+        </p>
     </div>
     <div class="row justify-content-center" style="padding-top: 15px; padding-bottom: 15px;">
         <div class="col-auto">
