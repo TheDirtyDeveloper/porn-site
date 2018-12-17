@@ -5,12 +5,11 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && webpack --mode production",
     "deploy": "node dist/server.js",
     "start": "node server.js"
   },
   "engines": {
-    "node": "10.x"
+    "node": "8.x"
   },
   "dependencies": {
     "axios": "^0.18.0",
